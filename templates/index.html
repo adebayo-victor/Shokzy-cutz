@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shokzy Cutz</title>
+    <!-- Golden "S" Web Icon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%20%2290%22 fill=%22%23D4AF37%22 font-family=%22Cinzel, serif%22 font-weight=%22bold%22>S</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;700&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --bright-gold: #FFD700;
+            --grey: #2F2F2F;
+            --dark: #1A1A1A;
+        }
+
+        body {
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: lightenBg 3s ease-in-out forwards;
+        }
+
+        @keyframes lightenBg {
+            from { filter: brightness(0); }
+            to { filter: brightness(0.5); } /* Increased brightness from 0.4 to 0.5 */
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.2s ease-out 2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-circle {
+            border: 4px solid var(--gold);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(47, 47, 47, 0.5);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .brand-text {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Added shadow for readability */
+        }
+
+        .btn-draw {
+            position: relative;
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem; /* Slightly larger */
+            font-weight: 800; /* Bolder */
+            color: #FFFFFF; /* Pure white */
+            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 2.8s forwards;
+            background: rgba(0, 0, 0, 0.4); /* Subtle backing for contrast */
+        }
+
+        .btn-draw svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: none;
+        }
+
+        .btn-draw rect {
+            width: 100%;
+            height: 100%;
+            stroke: var(--bright-gold); /* Using brighter gold */
+            stroke-width: 3; /* Thicker stroke */
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawBorder 1.2s ease-out 3s forwards;
+        }
+
+        @keyframes drawBorder {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .btn-draw:hover {
+            color: var(--bright-gold);
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .services-section {
+            background-image: linear-gradient(rgba(47, 47, 47, 0.9), rgba(47, 47, 47, 0.95)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .service-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .service-card.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: scale(1.02);
+        }
+
+        .cart-sticky {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: black;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        input, select, textarea {
+            background: transparent !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            color: white !important;
+        }
+
+        input:focus {
+            border-color: var(--gold) !important;
+            outline: none;
+        }
+
+        .gallery-img {
+            transition: transform 0.5s ease;
+            filter: grayscale(40%);
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .team-card {
+            background: var(--dark);
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+        }
+
+        .team-card:hover {
+            border-bottom-color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-bg px-10">
+        <div class="absolute left-12 top-1/2 -translate-y-1/2 hidden lg:block">
+            <div class="logo-circle">
+                <i class="fas fa-hand-scissors text-5xl text-[var(--gold)]"></i>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="fade-in">
+                <h1 class="text-6xl md:text-8xl brand-text uppercase font-bold text-white">
+                    Shokzy <span class="text-[var(--bright-gold)]">Cutz</span>
+                </h1>
+                <p class="mt-4 tracking-[12px] text-base md:text-lg uppercase text-white font-bold opacity-100">Where Tradition Meets Excellence</p>
+            </div>
+
+            <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
+                <a href="#services" class="btn-draw">
+                    <svg><rect></rect></svg>
+                    View Services
+                </a>
+                <a href="#contact" class="btn-draw">
+                    <svg><rect></rect></svg>
+                    Find Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-8 md:px-20 bg-[var(--dark)]">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="flex-1">
+                <h2 class="section-title text-4xl text-gold mb-6 uppercase">Our Story</h2>
+                <p class="text-gray-400 leading-loose mb-6">
+                    Founded with a passion for precision, Shokzy Cutz is more than just a barbershop. It is a sanctuary for grooming, where classic techniques meet modern styles. Our mission is to provide every client with a confidence-boosting experience through expert craftsmanship and premium care.
+                </p>
+                <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
+                    <div>
+                        <h4 class="text-gold font-bold mb-2 uppercase text-xs tracking-widest">Experience</h4>
+                        <p class="text-2xl font-brand">10+ Years</p>
+                    </div>
+                    <div>
+                        <h4 class="text-gold font-bold mb-2 uppercase text-xs tracking-widest">Clients</h4>
+                        <p class="text-2xl font-brand">5,000+</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 relative">
+                <img src="https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070&auto=format&fit=crop" class="rounded border-2 border-gold/30 shadow-2xl" alt="Shop Interior">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section py-24 px-8 md:px-20 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl md:text-5xl text-[var(--gold)] uppercase mb-4">Our Services</h2>
+                <div class="h-1 w-20 bg-gold mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto italic">Select your preferred services to build your grooming package.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+                <!-- JS handles this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-24 px-8 md:px-20 bg-[var(--grey)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl text-gold uppercase mb-4">Meet the Experts</h2>
+                <p class="text-gray-400">The masters behind the blades and brushes.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="team-card p-8 text-center group">
+                    <div class="w-40 h-40 mx-auto rounded-full border-2 border-gold mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover" alt="Master Barber">
+                    </div>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Marcus "Shokzy"</h3>
+                    <p class="text-gold text-xs uppercase tracking-tighter mb-4">Master Barber</p>
+                    <p class="text-gray-400 text-sm">Specialist in skin fades and traditional straight-razor work. Over a decade of precision.</p>
+                </div>
+                <div class="team-card p-8 text-center group">
+                    <div class="w-40 h-40 mx-auto rounded-full border-2 border-gold mb-6 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover" alt="Lead Hairdresser">
+                    </div>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Elena Vance</h3>
+                    <p class="text-gold text-xs uppercase tracking-tighter mb-4">Lead Hairdresser</p>
+                    <p class="text-gray-400 text-sm">Artist in coloring, texturizing, and high-fashion hair styling for all occasions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 px-4 bg-black">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <img src="https://images.unsplash.com/photo-1512690196236-d5a23293330a?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Haircut 1">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Beard 1">
+            <img src="https://images.unsplash.com/photo-1593702295094-ada35bc1307e?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Style 1">
+            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Shop">
+        </div>
+    </section>
+
+    <!-- Contact & Hours Section -->
+    <section id="contact" class="py-24 px-8 md:px-20 bg-[var(--dark)]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div>
+                <h3 class="brand-text text-xl text-gold mb-6 uppercase">Get In Touch</h3>
+                <ul class="space-y-4 text-gray-400">
+                    <li class="flex items-center gap-4"><i class="fas fa-map-marker-alt text-gold"></i> 12 Barber's Row, Victoria Island, Lagos</li>
+                    <li class="flex items-center gap-4"><i class="fas fa-phone text-gold"></i> +234 813 639 0030</li>
+                    <li class="flex items-center gap-4"><i class="fas fa-envelope text-gold"></i> info@shokzycutz.com</li>
+                </ul>
+                <div class="flex gap-4 mt-8">
+                    <a href="#" class="text-gray-500 hover:text-gold transition text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-gold transition text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-gold transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="brand-text text-xl text-gold mb-6 uppercase">Operating Hours</h3>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li class="flex justify-between border-b border-white/5 pb-2"><span>Monday - Friday</span> <span>08:00 AM - 08:00 PM</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-2"><span>Saturday</span> <span>09:00 AM - 10:00 PM</span></li>
+                    <li class="flex justify-between border-b border-white/5 pb-2"><span>Sunday</span> <span>10:00 AM - 04:00 PM</span></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="brand-text text-xl text-gold mb-6 uppercase">Location</h3>
+                <div class="h-48 bg-grey rounded-lg border border-gold/20 flex items-center justify-center grayscale overflow-hidden">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7!2d3.42!3d6.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMjUnNDguMCJOIDPCsDI1JzEyLjAiRQ!5e0!3m2!1sen!2sng!4v1620000000000!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest">
+        &copy; 2026 Shokzy Cutz. Crafted by Vicade.
+    </footer>
+
+    <!-- Cart Floating Bar -->
+    <div id="cart-bar" class="cart-sticky items-center gap-4" onclick="openCart()">
+        <i class="fas fa-shopping-basket"></i>
+        <span><span id="cart-count">0</span> Selected</span>
+        <span class="ml-4 border-l border-black/20 pl-4">₦<span id="cart-total">0</span></span>
+    </div>
+
+    <!-- Selection Summary Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/95 z-[200] hidden items-center justify-center p-6">
+        <div class="bg-[#1A1A1A] border border-gold p-8 w-full max-w-lg rounded-lg shadow-2xl">
+            <h3 class="brand-text text-2xl text-gold mb-6 uppercase text-center">Your Selection</h3>
+            <div id="cart-items" class="space-y-4 mb-8 max-h-[30vh] overflow-y-auto pr-2"></div>
+            <div class="border-t border-white/10 pt-4 flex justify-between text-xl font-bold">
+                <span>Total</span>
+                <span class="text-gold">₦<span id="modal-total">0</span></span>
+            </div>
+            <div class="mt-8 flex gap-4">
+                <button onclick="closeCart()" class="flex-1 py-3 border border-gray-600 uppercase text-[10px] tracking-widest hover:bg-white/5">Back</button>
+                <button onclick="showBookingForm()" class="flex-1 py-3 bg-gold text-black font-bold uppercase text-[10px] tracking-widest hover:bg-white transition">Confirm & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Booking Form Modal -->
+    <div id="booking-modal" class="fixed inset-0 bg-black/95 z-[300] hidden items-center justify-center p-6 overflow-y-auto">
+        <div class="bg-[#1A1A1A] border border-gold p-8 w-full max-w-lg rounded-lg mt-20 mb-20">
+            <h3 class="brand-text text-2xl text-gold mb-2 uppercase text-center">Final Details</h3>
+            <form id="whatsappForm" class="space-y-6">
+                <div><label class="block text-[10px] uppercase text-gold tracking-widest mb-2">Full Name</label><input type="text" id="cust_name" required class="w-full p-3 text-sm" placeholder="Enter your name"></div>
+                <div><label class="block text-[10px] uppercase text-gold tracking-widest mb-2">Phone Number</label><input type="tel" id="cust_phone" required class="w-full p-3 text-sm" placeholder="081 000 0000"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] uppercase text-gold tracking-widest mb-2">Date</label><input type="date" id="book_date" required class="w-full p-3 text-sm"></div>
+                    <div><label class="block text-[10px] uppercase text-gold tracking-widest mb-2">Time</label><input type="time" id="book_time" required class="w-full p-3 text-sm"></div>
+                </div>
+                <div><label class="block text-[10px] uppercase text-gold tracking-widest mb-2">Notes</label><textarea id="cust_notes" class="w-full p-3 text-sm h-20" placeholder="Optional details..."></textarea></div>
+                <div class="pt-4 flex gap-4">
+                    <button type="button" onclick="closeBookingForm()" class="flex-1 py-3 border border-gray-600 uppercase text-[10px] tracking-widest">Cancel</button>
+                    <button type="submit" class="flex-1 py-3 bg-green-600 text-white font-bold uppercase text-[10px] tracking-widest hover:bg-green-500 transition flex items-center justify-center gap-2"><i class="fab fa-whatsapp text-lg"></i> Send to WhatsApp</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const services = [
+            { id: 1, name: "Classic Haircut", price: 5000, icon: "fa-cut", desc: "Tapers, fades, and tailored scissor cuts." },
+            { id: 2, name: "Beard Grooming", price: 3500, icon: "fa-razor", desc: "Trimming, shaping, and full styling." },
+            { id: 3, name: "Royal Shave", price: 6000, icon: "fa-soap", desc: "Straight-razor, hot lather, and towel treatment." },
+            { id: 4, name: "Professional Hairdressing", price: 12000, icon: "fa-gem", desc: "Expert female styling, washing, and setting." },
+            { id: 5, name: "Color Services", price: 8000, icon: "fa-palette", desc: "Gray blending, highlights, and hair painting." },
+            { id: 6, name: "Facial & Skin Care", price: 7000, icon: "fa-sparkles", desc: "Exfoliation, moisturizer, and scalp massage." },
+            { id: 7, name: "Grooming Extras", price: 2000, icon: "fa-eye", desc: "Eyebrow threading and hair designs." },
+            { id: 8, name: "Kid's Haircut", price: 4000, icon: "fa-child", desc: "Specialized gentle cuts for children." }
+        ];
+
+        let selectedItems = [];
+
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = services.map(s => `
+                <div id="service-${s.id}" onclick="toggleService(${s.id})" class="service-card cursor-pointer p-8 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="fas ${s.icon} text-3xl text-gold group-hover:scale-110 transition"></i>
+                        <span class="text-gold font-bold">₦${s.price.toLocaleString()}</span>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-2">${s.name}</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">${s.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function toggleService(id) {
+            const service = services.find(s => s.id === id);
+            const index = selectedItems.findIndex(item => item.id === id);
+            const card = document.getElementById(`service-${id}`);
+            if (index === -1) {
+                selectedItems.push(service);
+                if (card) { card.classList.add('selected'); }
+            } else {
+                selectedItems.splice(index, 1);
+                if (card) { card.classList.remove('selected'); }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const bar = document.getElementById('cart-bar');
+            const totalAmount = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            if (selectedItems.length > 0) {
+                bar.style.display = 'flex';
+            } else {
+                bar.style.display = 'none';
+            }
+            document.getElementById('cart-count').innerText = selectedItems.length;
+            document.getElementById('cart-total').innerText = totalAmount.toLocaleString();
+            document.getElementById('modal-total').innerText = totalAmount.toLocaleString();
+            document.getElementById('cart-items').innerHTML = selectedItems.map(item => `
+                <div class="flex justify-between items-center py-2 border-b border-white/5">
+                    <div><div class="font-bold uppercase text-xs">${item.name}</div><div class="text-[10px] text-gray-500">₦${item.price.toLocaleString()}</div></div>
+                    <button onclick="event.stopPropagation(); toggleService(${item.id})" class="text-red-500 hover:text-white"><i class="fas fa-times text-xs"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function openCart() { if (selectedItems.length > 0) { document.getElementById('cart-modal').style.display = 'flex'; } }
+        function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+        function showBookingForm() { closeCart(); document.getElementById('booking-modal').style.display = 'flex'; }
+        function closeBookingForm() { document.getElementById('booking-modal').style.display = 'none'; }
+
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('cust_name').value;
+            const phone = document.getElementById('cust_phone').value;
+            const date = document.getElementById('book_date').value;
+            const time = document.getElementById('book_time').value;
+            const notes = document.getElementById('cust_notes').value;
+            const serviceList = selectedItems.map(item => `- ${item.name}`).join('%0A');
+            const total = selectedItems.reduce((sum, item) => sum + item.price, 0).toLocaleString();
+            const message = `*BOOKING AT SHOKZY CUTZ*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A%0A*Services:*%0A${serviceList}%0A%0A*Total:* ₦${total}%0A*Notes:* ${notes}`;
+            window.open(`https://wa.me/2348136390030?text=${message}`, '_blank');
+        });
+
+        renderServices();
+    </script>
+</body>
+</html>
