@@ -43,7 +43,7 @@
 
         @keyframes lightenBg {
             from { filter: brightness(0); }
-            to { filter: brightness(0.5); } /* Increased brightness from 0.4 to 0.5 */
+            to { filter: brightness(0.5); }
         }
 
         .fade-in {
@@ -77,7 +77,7 @@
         .brand-text {
             font-family: 'Cinzel', serif;
             letter-spacing: 8px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Added shadow for readability */
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
         .btn-draw {
@@ -85,13 +85,13 @@
             padding: 1rem 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.85rem; /* Slightly larger */
-            font-weight: 800; /* Bolder */
-            color: #FFFFFF; /* Pure white */
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #FFFFFF;
             transition: all 0.3s;
             opacity: 0;
             animation: fadeIn 0.8s ease-out 2.8s forwards;
-            background: rgba(0, 0, 0, 0.4); /* Subtle backing for contrast */
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .btn-draw svg {
@@ -106,8 +106,8 @@
         .btn-draw rect {
             width: 100%;
             height: 100%;
-            stroke: var(--bright-gold); /* Using brighter gold */
-            stroke-width: 3; /* Thicker stroke */
+            stroke: var(--bright-gold);
+            stroke-width: 3;
             stroke-dasharray: 400;
             stroke-dashoffset: 400;
             animation: drawBorder 1.2s ease-out 3s forwards;
@@ -173,14 +173,65 @@
             outline: none;
         }
 
-        .gallery-img {
-            transition: transform 0.5s ease;
-            filter: grayscale(40%);
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 450px;
         }
 
-        .gallery-img:hover {
-            transform: scale(1.05);
+        .gallery-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            height: 100%;
+        }
+
+        .gallery-item {
+            flex: 0 0 100%;
+            height: 100%;
+            padding: 0 5px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%);
+            transition: 0.5s;
+        }
+
+        .gallery-item img:hover {
             filter: grayscale(0%);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .gallery-nav:hover {
+            background: var(--gold);
+            color: black;
+        }
+
+        .gallery-prev { left: 20px; }
+        .gallery-next { right: 20px; }
+
+        @media (min-width: 768px) {
+            .gallery-item { flex: 0 0 33.333%; }
         }
 
         .team-card {
@@ -191,6 +242,24 @@
 
         .team-card:hover {
             border-bottom-color: var(--gold);
+        }
+
+        .testimonial-container {
+            overflow: hidden;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 200px;
+        }
+
+        .testimonial-slide {
+            display: none;
+            animation: fadeEffect 1.2s;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -236,11 +305,11 @@
                 <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
                     <div>
                         <h4 class="text-gold font-bold mb-2 uppercase text-xs tracking-widest">Experience</h4>
-                        <p class="text-2xl font-brand">10+ Years</p>
+                        <p class="text-2xl font-brand">7+ Years</p>
                     </div>
                     <div>
-                        <h4 class="text-gold font-bold mb-2 uppercase text-xs tracking-widest">Clients</h4>
-                        <p class="text-2xl font-brand">5,000+</p>
+                        <h4 class="text-gold font-bold mb-2 uppercase text-xs tracking-widest">Satisfied Clients</h4>
+                        <p class="text-2xl font-brand">500+</p>
                     </div>
                 </div>
             </div>
@@ -254,13 +323,23 @@
     <section id="services" class="services-section py-24 px-8 md:px-20 min-h-screen">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="section-title text-4xl md:text-5xl text-[var(--gold)] uppercase mb-4">Our Services</h2>
+                <h2 class="section-title text-4xl md:text-5xl text-[var(--gold)] uppercase mb-4">Barbering Services</h2>
                 <div class="h-1 w-20 bg-gold mx-auto mb-6"></div>
-                <p class="text-gray-300 max-w-2xl mx-auto italic">Select your preferred services to build your grooming package.</p>
+                <p class="text-gray-300 max-w-2xl mx-auto italic">Premium grooming for the modern man.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
-                <!-- JS handles this -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24" id="services-grid">
+                <!-- Content injected via JS -->
+            </div>
+
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl md:text-5xl text-[var(--gold)] uppercase mb-4">Zeezah's Hair</h2>
+                <div class="h-1 w-20 bg-gold mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto italic">Specialized female hair styling and maintenance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="zeezah-services-grid">
+                <!-- Content injected via JS -->
             </div>
         </div>
     </section>
@@ -277,29 +356,51 @@
                     <div class="w-40 h-40 mx-auto rounded-full border-2 border-gold mb-6 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover" alt="Master Barber">
                     </div>
-                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Marcus "Shokzy"</h3>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Shokzy</h3>
                     <p class="text-gold text-xs uppercase tracking-tighter mb-4">Master Barber</p>
-                    <p class="text-gray-400 text-sm">Specialist in skin fades and traditional straight-razor work. Over a decade of precision.</p>
+                    <p class="text-gray-400 text-sm">Specialist in skin fades and traditional straight-razor work. Over 7 years of precision.</p>
                 </div>
                 <div class="team-card p-8 text-center group">
                     <div class="w-40 h-40 mx-auto rounded-full border-2 border-gold mb-6 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover" alt="Lead Hairdresser">
+                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover" alt="Zeezah">
                     </div>
-                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Elena Vance</h3>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-1">Zeezah</h3>
                     <p class="text-gold text-xs uppercase tracking-tighter mb-4">Lead Hairdresser</p>
-                    <p class="text-gray-400 text-sm">Artist in coloring, texturizing, and high-fashion hair styling for all occasions.</p>
+                    <p class="text-gray-400 text-sm">Expert in weaving, braids, and natural hair styling for the sophisticated look.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 px-4 bg-black">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-            <img src="https://images.unsplash.com/photo-1512690196236-d5a23293330a?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Haircut 1">
-            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Beard 1">
-            <img src="https://images.unsplash.com/photo-1593702295094-ada35bc1307e?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Style 1">
-            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" class="gallery-img w-full h-64 object-cover" alt="Shop">
+    <!-- Reviews Section -->
+    <section class="py-24 px-8 md:px-20 bg-black">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="section-title text-4xl text-gold uppercase mb-12">Client Feedback</h2>
+            <div class="testimonial-container">
+                <div class="testimonial-slide">
+                    <p class="text-2xl italic text-gray-300 mb-6">"Best fade I've ever had. The attention to detail is unmatched in Lagos."</p>
+                    <p class="text-gold uppercase font-bold tracking-widest">- David O.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="text-2xl italic text-gray-300 mb-6">"Zeezah is a magician with braids. My cornrows look perfect every time."</p>
+                    <p class="text-gold uppercase font-bold tracking-widest">- Sarah T.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="text-2xl italic text-gray-300 mb-6">"The royal shave is a ritual I never miss. Proper luxury."</p>
+                    <p class="text-gold uppercase font-bold tracking-widest">- James W.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Gallery Slideshow Section -->
+    <section id="gallery" class="py-0 bg-black relative">
+        <button class="gallery-nav gallery-prev" onclick="moveGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="gallery-nav gallery-next" onclick="moveGallery(1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="gallery-container">
+            <div class="gallery-track" id="gallery-track">
+                <!-- Gallery items injected via JS -->
+            </div>
         </div>
     </section>
 
@@ -336,8 +437,17 @@
         </div>
     </section>
 
-    <footer class="py-10 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest">
-        &copy; 2026 Shokzy Cutz. Crafted by Vicade.
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 bg-black text-center">
+        <div class="mb-6 flex justify-center gap-8">
+            <a href="#about" class="text-xs uppercase tracking-widest text-gray-500 hover:text-gold transition">About</a>
+            <a href="#services" class="text-xs uppercase tracking-widest text-gray-500 hover:text-gold transition">Services</a>
+            <a href="#gallery" class="text-xs uppercase tracking-widest text-gray-500 hover:text-gold transition">Gallery</a>
+            <a href="#contact" class="text-xs uppercase tracking-widest text-gray-500 hover:text-gold transition">Contact</a>
+        </div>
+        <div class="text-gray-600 text-[10px] uppercase tracking-widest">
+            &copy; 2026 Shokzy Cutz. Crafted by Vicade.
+        </div>
     </footer>
 
     <!-- Cart Floating Bar -->
@@ -384,22 +494,59 @@
     </div>
 
     <script>
-        const services = [
-            { id: 1, name: "Classic Haircut", price: 5000, icon: "fa-cut", desc: "Tapers, fades, and tailored scissor cuts." },
-            { id: 2, name: "Beard Grooming", price: 3500, icon: "fa-razor", desc: "Trimming, shaping, and full styling." },
-            { id: 3, name: "Royal Shave", price: 6000, icon: "fa-soap", desc: "Straight-razor, hot lather, and towel treatment." },
-            { id: 4, name: "Professional Hairdressing", price: 12000, icon: "fa-gem", desc: "Expert female styling, washing, and setting." },
-            { id: 5, name: "Color Services", price: 8000, icon: "fa-palette", desc: "Gray blending, highlights, and hair painting." },
-            { id: 6, name: "Facial & Skin Care", price: 7000, icon: "fa-sparkles", desc: "Exfoliation, moisturizer, and scalp massage." },
-            { id: 7, name: "Grooming Extras", price: 2000, icon: "fa-eye", desc: "Eyebrow threading and hair designs." },
-            { id: 8, name: "Kid's Haircut", price: 4000, icon: "fa-child", desc: "Specialized gentle cuts for children." }
+        const barberServices = [
+            { id: 1, name: "Classic Haircut", price: 1500, icon: "fa-cut", desc: "Precision cut by the masters." },
+            { id: 7, name: "Haircut + Dye", price: 2500, icon: "fa-fill-drip", desc: "Classic cut with premium coloring." },
+            { id: 2, name: "Beard Grooming", price: 1000, icon: "fa-razor", desc: "Expert shaping and beard maintenance." },
+            { id: 3, name: "Royal Shave", price: 3000, icon: "fa-soap", desc: "Premium straight-razor shave with towel service." },
+            { id: 4, name: "Color Services", price: 1000, icon: "fa-palette", desc: "Basic hair coloring and blending." },
+            { id: 5, name: "Tint Services", price: 5000, icon: "fa-brush", desc: "Deep tinting and high-definition color work." },
+            { id: 6, name: "Grooming Services", price: 2000, icon: "fa-magic", desc: "Full facial grooming and skin prep." }
+        ];
+
+        const zeezahServices = [
+            { id: 101, name: "Hair Straightening", price: 3000, icon: "fa-bolt", desc: "Sleek and smooth thermal straightening." },
+            { id: 102, name: "Cornrows", price: 1000, icon: "fa-ellipsis-v", desc: "Classic African weaving styles." },
+            { id: 103, name: "Braids (Medium)", price: 7000, icon: "fa-braid", desc: "Full head medium-sized braids." },
+            { id: 104, name: "Small Braids", price: 9000, icon: "fa-braid", desc: "Intricate, fine-textured braids." },
+            { id: 105, name: "Dreadlocks", price: 8000, icon: "fa-lock", desc: "Starter locs or professional maintenance." },
+            { id: 106, name: "Crochet", price: 4000, icon: "fa-hand-dots", desc: "Fast and stylish crochet extensions." },
+            { id: 107, name: "Weavon Fixing", price: 4000, icon: "fa-female", desc: "Professional weave installation." },
+            { id: 108, name: "Nails (Buy & Fix)", price: 1500, icon: "fa-hand-sparkles", desc: "Selection and application of premium nails." },
+            { id: 109, name: "Gel Application", price: 3000, icon: "fa-spray-can", desc: "Long-lasting gel styling and shine." },
+            { id: 110, name: "Twisting (Natural)", price: 1500, icon: "fa-leaf", desc: "Twists or braids with natural hair." },
+            { id: 111, name: "Hair Relaxing", price: 1500, icon: "fa-spa", desc: "Chemical softening and relaxing treatment." },
+            { id: 112, name: "Eyelash Fixing", price: 600, icon: "fa-eye", desc: "Precision eyelash application." }
+        ];
+
+        const galleryImages = [
+            "https://images.unsplash.com/photo-1512690196236-d5a23293330a?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1593702295094-ada35bc1307e?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1599351473299-d8395e69f163?q=80&w=2070&auto=format&fit=crop"
         ];
 
         let selectedItems = [];
+        let slideIndex = 0;
+        let galleryIndex = 0;
 
-        function renderServices() {
-            const grid = document.getElementById('services-grid');
-            grid.innerHTML = services.map(s => `
+        function renderGrids() {
+            const barberGrid = document.getElementById('services-grid');
+            if (barberGrid) {
+                barberGrid.innerHTML = barberServices.map(s => createServiceCard(s)).join('');
+            }
+
+            const zeezahGrid = document.getElementById('zeezah-services-grid');
+            if (zeezahGrid) {
+                zeezahGrid.innerHTML = zeezahServices.map(s => createServiceCard(s)).join('');
+            }
+        }
+
+        function createServiceCard(s) {
+            return `
                 <div id="service-${s.id}" onclick="toggleService(${s.id})" class="service-card cursor-pointer p-8 group">
                     <div class="flex justify-between items-start mb-6">
                         <i class="fas ${s.icon} text-3xl text-gold group-hover:scale-110 transition"></i>
@@ -408,18 +555,34 @@
                     <h3 class="text-xl font-bold uppercase tracking-widest mb-2">${s.name}</h3>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">${s.desc}</p>
                 </div>
-            `).join('');
+            `;
         }
 
         function toggleService(id) {
-            const service = services.find(s => s.id === id);
-            const index = selectedItems.findIndex(item => item.id === id);
+            const allServices = [...barberServices, ...zeezahServices];
+            let service = null;
+            for (let i = 0; i < allServices.length; i++) {
+                if (allServices[i].id === id) {
+                    service = allServices[i];
+                    break;
+                }
+            }
+            
+            let existingIdx = -1;
+            for (let j = 0; j < selectedItems.length; j++) {
+                if (selectedItems[j].id === id) {
+                    existingIdx = j;
+                    break;
+                }
+            }
+
             const card = document.getElementById(`service-${id}`);
-            if (index === -1) {
+            
+            if (existingIdx === -1) {
                 selectedItems.push(service);
                 if (card) { card.classList.add('selected'); }
             } else {
-                selectedItems.splice(index, 1);
+                selectedItems.splice(existingIdx, 1);
                 if (card) { card.classList.remove('selected'); }
             }
             updateCartUI();
@@ -427,12 +590,17 @@
 
         function updateCartUI() {
             const bar = document.getElementById('cart-bar');
-            const totalAmount = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            let totalAmount = 0;
+            for (let i = 0; i < selectedItems.length; i++) {
+                totalAmount = totalAmount + selectedItems[i].price;
+            }
+            
             if (selectedItems.length > 0) {
                 bar.style.display = 'flex';
             } else {
                 bar.style.display = 'none';
             }
+            
             document.getElementById('cart-count').innerText = selectedItems.length;
             document.getElementById('cart-total').innerText = totalAmount.toLocaleString();
             document.getElementById('modal-total').innerText = totalAmount.toLocaleString();
@@ -444,10 +612,67 @@
             `).join('');
         }
 
-        function openCart() { if (selectedItems.length > 0) { document.getElementById('cart-modal').style.display = 'flex'; } }
+        function openCart() { 
+            if (selectedItems.length > 0) { 
+                document.getElementById('cart-modal').style.display = 'flex'; 
+            } 
+        }
         function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
         function showBookingForm() { closeCart(); document.getElementById('booking-modal').style.display = 'flex'; }
         function closeBookingForm() { document.getElementById('booking-modal').style.display = 'none'; }
+
+        function showTestimonials() {
+            const slides = document.getElementsByClassName("testimonial-slide");
+            if (slides.length === 0) return;
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showTestimonials, 4500);
+        }
+
+        function renderGallery() {
+            const track = document.getElementById('gallery-track');
+            if (track) {
+                track.innerHTML = galleryImages.map(img => `
+                    <div class="gallery-item">
+                        <img src="${img}" alt="Grooming Style">
+                    </div>
+                `).join('');
+            }
+        }
+
+        function moveGallery(dir) {
+            const track = document.getElementById('gallery-track');
+            if (!track) return;
+            const items = document.querySelectorAll('.gallery-item');
+            let visibleCount = 1;
+            if (window.innerWidth >= 768) {
+                visibleCount = 3;
+            }
+            
+            const maxIdx = items.length - visibleCount;
+
+            galleryIndex = galleryIndex + dir;
+            
+            if (galleryIndex < 0) { 
+                galleryIndex = maxIdx; 
+            }
+            if (galleryIndex > maxIdx) { 
+                galleryIndex = 0; 
+            }
+
+            const step = 100 / visibleCount;
+            const translateValue = galleryIndex * step;
+            track.style.transform = `translateX(-${translateValue}%)`;
+        }
+
+        function autoScrollGallery() {
+            moveGallery(1);
+            setTimeout(autoScrollGallery, 6000);
+        }
 
         document.getElementById('whatsappForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -456,13 +681,34 @@
             const date = document.getElementById('book_date').value;
             const time = document.getElementById('book_time').value;
             const notes = document.getElementById('cust_notes').value;
-            const serviceList = selectedItems.map(item => `- ${item.name}`).join('%0A');
-            const total = selectedItems.reduce((sum, item) => sum + item.price, 0).toLocaleString();
-            const message = `*BOOKING AT SHOKZY CUTZ*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A%0A*Services:*%0A${serviceList}%0A%0A*Total:* ₦${total}%0A*Notes:* ${notes}`;
-            window.open(`https://wa.me/2349158588825?text=${message}`, '_blank');
+            
+            let servicesText = "";
+            for (let i = 0; i < selectedItems.length; i++) {
+                servicesText = servicesText + "- " + selectedItems[i].name + "%0A";
+            }
+            
+            let totalVal = 0;
+            for (let j = 0; j < selectedItems.length; j++) {
+                totalVal = totalVal + selectedItems[j].price;
+            }
+            const totalFormatted = totalVal.toLocaleString();
+
+            const message = `*NEW BOOKING: SHOKZY CUTZ*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Time:* ${time}%0A%0A*Services:*%0A${servicesText}%0A*Total:* ₦${totalFormatted}%0A*Notes:* ${notes}`;
+            window.open(`https://wa.me/2349155858825?text=${message}`, '_blank');
         });
 
-        renderServices();
+        window.addEventListener('DOMContentLoaded', function() {
+            renderGrids();
+            renderGallery();
+            showTestimonials();
+            setTimeout(autoScrollGallery, 6000);
+        });
+        
+        window.addEventListener('resize', () => {
+            galleryIndex = 0;
+            const track = document.getElementById('gallery-track');
+            if (track) { track.style.transform = `translateX(0)`; }
+        });
     </script>
 </body>
 </html>
